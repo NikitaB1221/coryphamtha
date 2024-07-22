@@ -1,7 +1,8 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Welcome extends CI_Controller
+
+class Users extends CI_Controller
 {
 
 	/**
@@ -21,12 +22,14 @@ class Welcome extends CI_Controller
 	 */
 	public function index()
 	{
-		$this->load->database('default');
-		if ($this->db->simple_query('SELECT 1')) {
-			echo "Success!";
-		} else {
-			echo "Query failed!";
-		}
-		// $this->load->view('welcome_message');
+		echo "Hello there!";
+	}
+	public function hello_user()
+	{
+		header("Content-Type: application/json; charset=utf-8",true);
+		$array = ["1"=>"2"];
+		echo json_encode($array, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_LINE_TERMINATORS);
 	}
 }
+
+// todo:
