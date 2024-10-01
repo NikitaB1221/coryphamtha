@@ -39,9 +39,10 @@ class Users extends CI_Controller
             'sex' => $this->input->post('sex'),
             'firstName' => $this->input->post('firstName'),
             'lastName' => $this->input->post('lastName'),
-            'birthday' => $this->input->post('birthday')
+            'birthday' => $this->input->post('birthday'),
+            'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT)
         );
-
+    
         $this->User_model->create_user($data);
         echo json_encode(array('status' => 'User registered successfully'));
     }
@@ -50,15 +51,30 @@ class Users extends CI_Controller
     {
         $email = $this->input->post('email');
         $password = $this->input->post('password');
-        // Реализуйте логику авторизации по email и паролю
+    
+        $user = $this->User_model->check_credentials($email, $password, 'email');
+    
+        if ($user) {
+            echo json_encode(array('status' => 'Login successful', 'user' => $user));
+        } else {
+            echo json_encode(array('status' => 'Invalid email or password'));
+        }
     }
-
+    
     public function login_by_phone()
     {
         $phone = $this->input->post('phone');
         $password = $this->input->post('password');
-        // Реализуйте логику авторизации по телефону и паролю
+    
+        $user = $this->User_model->check_credentials($phone, $password, 'phone');
+    
+        if ($user) {
+            echo json_encode(array('status' => 'Login successful', 'user' => $user));
+        } else {
+            echo json_encode(array('status' => 'Invalid phone or password'));
+        }
     }
+    
 
     public function verify_phone()
     {

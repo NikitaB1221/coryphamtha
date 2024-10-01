@@ -81,5 +81,23 @@ class User_model extends CI_Model
         $this->db->where('id', $id);
         return $this->db->delete('addresses');
     }
+
+    public function check_credentials($identifier, $password, $type = 'email')
+{
+    if ($type == 'email') {
+        $query = $this->db->get_where('users', array('email' => $identifier));
+    } else {
+        $query = $this->db->get_where('users', array('phone' => $identifier));
+    }
+
+    $user = $query->row_array();
+
+    if ($user && password_verify($password, $user['password'])) {
+        return $user;
+    } else {
+        return false;
+    }
+}
+
 }
 ?>

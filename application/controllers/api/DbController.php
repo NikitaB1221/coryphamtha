@@ -20,7 +20,7 @@ class DbController extends CI_Controller
             }
         } else {
             echo 'Database already exists.';
-        }
+        }   
     }
 
     public function createUsersTable()
