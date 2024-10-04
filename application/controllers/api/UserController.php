@@ -60,7 +60,8 @@ class Users extends CI_Controller
             echo json_encode(array('status' => 'Invalid email or password'));
         }
     }
-    
+
+
     public function login_by_phone()
     {
         $phone = $this->input->post('phone');
@@ -75,14 +76,44 @@ class Users extends CI_Controller
         }
     }
     
+    //  Отправка кода верификации:
+    //    URL: /users/send_verification_code
+    //    Метод: POST
+    //    Параметры: phone
 
-    public function verify_phone()
+    public function send_verification_code()
+    {
+        $phone = $this->input->post('phone');
+        $code = rand(10000, 99999); // Генерация случайного кода из 5 цифр
+    
+        // Обновление кода верификации в базе данных
+        if ($this->User_model->update_phone_verification_code($phone, $code)) {
+            // Отправка кода верификации (в режиме отладки просто возвращаем код)
+            echo json_encode(array('status' => 'Verification code sent', 'code' => $code));
+        } else {
+            echo json_encode(array('status' => 'Failed to send verification code'));
+        }
+    }
+    
+    //  Проверка кода верификации:
+    //      URL: /users/verify_phone_code
+    //      Метод: POST
+    //      Параметры: phone, code
+    
+    public function verify_phone_code()
     {
         $phone = $this->input->post('phone');
         $code = $this->input->post('code');
-        // Реализуйте логику верификации номера телефона
+    
+        $user = $this->User_model->verify_phone_code($phone, $code);
+    
+        if ($user) {
+            echo json_encode(array('status' => 'Phone verified successfully'));
+        } else {
+            echo json_encode(array('status' => 'Invalid verification code'));
+        }
     }
-
+    
     public function update($id)
     {
         $data = array(
