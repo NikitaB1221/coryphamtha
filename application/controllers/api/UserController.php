@@ -116,7 +116,7 @@ class Users extends CI_Controller
     
     public function update($id)
     {
-        $data = array(
+        $data = array(  
             'email' => $this->input->post('email'),
             'emailVerificationCode' => $this->input->post('emailVerificationCode'),
             'phoneVerificationCode' => $this->input->post('phoneVerificationCode'),

@@ -20,7 +20,7 @@ class DbController extends CI_Controller
             }
         } else {
             echo 'Database already exists.';
-        }   
+        }
     }
 
     public function createUsersTable()
@@ -130,6 +130,174 @@ class DbController extends CI_Controller
             echo 'Addresses table created!';
         } else {
             echo 'Addresses table already exists.';
+        }
+    }
+
+    public function createProductsTable()
+    {
+        $this->load->dbforge();
+
+        if (!$this->db->table_exists('products')) {
+            $fields = array(
+                'id' => array(
+                    'type' => 'INT',
+                    'auto_increment' => TRUE,
+                    'null' => FALSE
+                ),
+                'title' => array(
+                    'type' => 'VARCHAR',
+                    'constraint' => '100',
+                    'null' => TRUE
+                ),
+                'vendor_code' => array(
+                    'type' => 'VARCHAR',
+                    'constraint' => '100',
+                    'null' => FALSE
+                ),
+                'price' => array(
+                    'type' => 'INT',
+                    'null' => FALSE
+                ),
+                'availability' => array(
+                    'type' => 'TINYINT',
+                    'null' => FALSE
+                ),
+                'category_id' => array(
+                    'type' => 'INT',
+                    'null' => FALSE
+                ),
+                'description' => array(
+                    'type' => 'VARCHAR',
+                    'constraint' => '500',
+                    'null' => FALSE
+                )
+            );
+            $this->dbforge->add_field($fields);
+            $this->dbforge->add_key('id', TRUE);
+            $this->dbforge->create_table('products');
+            echo 'Products table created!';
+        } else {
+            echo 'Products table already exists.';
+        }
+    }
+
+    public function createProductCategoriesTable()
+    {
+        $this->load->dbforge();
+
+        if (!$this->db->table_exists('product_categories')) {
+            $fields = array(
+                'id' => array(
+                    'type' => 'INT',
+                    'auto_increment' => TRUE,
+                    'null' => FALSE
+                ),
+                'title' => array(
+                    'type' => 'VARCHAR',
+                    'constraint' => '100',
+                    'null' => TRUE
+                ),
+                'level' => array(
+                    'type' => 'TINYINT',
+                    'constraint' => '1',
+                    'null' => FALSE
+                ),
+                'main' => array(
+                    'type' => 'INT',
+                    'null' => FALSE
+                )
+            );
+            $this->dbforge->add_field($fields);
+            $this->dbforge->add_key('id', TRUE);
+            $this->dbforge->create_table('product_categories');
+            echo 'Product categories table created!';
+        } else {
+            echo 'Product categories table already exists.';
+        }
+    }
+
+    public function createProductFilterTagCategoriesTable()
+    {
+        $this->load->dbforge();
+
+        if (!$this->db->table_exists('product_filter_tag_categories')) {
+            $fields = array(
+                'id' => array(
+                    'type' => 'INT',
+                    'auto_increment' => TRUE,
+                    'null' => FALSE
+                ),
+                'title' => array(
+                    'type' => 'VARCHAR',
+                    'constraint' => '100',
+                    'null' => FALSE
+                )
+            );
+            $this->dbforge->add_field($fields);
+            $this->dbforge->add_key('id', TRUE);
+            $this->dbforge->create_table('product_filter_tag_categories');
+            echo 'Product filter tag categories table created!';
+        } else {
+            echo 'Product filter tag categories table already exists.';
+        }
+    }
+
+    public function createProductFilterTagsTable()
+    {
+        $this->load->dbforge();
+
+        if (!$this->db->table_exists('product_filter_tags')) {
+            $fields = array(
+                'id' => array(
+                    'type' => 'INT',
+                    'auto_increment' => TRUE,
+                    'null' => FALSE
+                ),
+                'product_filter_tag_category_id' => array(
+                    'type' => 'INT',
+                    'null' => FALSE
+                ),
+                'title' => array(
+                    'type' => 'VARCHAR',
+                    'constraint' => '100',
+                    'null' => TRUE
+                )
+            );
+            $this->dbforge->add_field($fields);
+            $this->dbforge->add_key('id', TRUE);
+            $this->dbforge->create_table('product_filter_tags');
+            echo 'Product filter tags table created!';
+        } else {
+            echo 'Product filter tags table already exists.';
+        }
+    }
+
+    public function createProducts2ProductFilterTagsTable()
+    {
+        $this->load->dbforge();
+
+        if (!$this->db->table_exists('products2product_filter_tags')) {
+            $fields = array(
+                'id' => array(
+                    'type' => 'INT',
+                    'auto_increment' => TRUE,
+                    'null' => FALSE
+                ),
+                'product_filter_tags_id' => array(
+                    'type' => 'INT',
+                    'null' => FALSE
+                ),
+                'product_id' => array(
+                    'type' => 'INT',
+                    'null' => FALSE
+                )
+            );
+            $this->dbforge->add_field($fields);
+            $this->dbforge->add_key('id', TRUE);
+            $this->dbforge->create_table('products2product_filter_tags');
+            echo 'Products to product filter tags table created!';
+        } else {
+            echo 'Products to product filter tags table already exists.';
         }
     }
 }
