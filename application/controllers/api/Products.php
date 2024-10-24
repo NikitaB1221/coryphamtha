@@ -33,7 +33,8 @@ class Products extends CI_Controller
             'price' => $this->input->post('price'),
             'availability' => $this->input->post('availability'),
             'category_id' => $this->input->post('category_id'),
-            'description' => $this->input->post('description')
+            'description' => $this->input->post('description'),
+            'iamge_link' => $this->input->post('iamge_link')
         );
 
         $this->Product_model->create_product($data);
@@ -48,7 +49,8 @@ class Products extends CI_Controller
             'price' => $this->input->post('price'),
             'availability' => $this->input->post('availability'),
             'category_id' => $this->input->post('category_id'),
-            'description' => $this->input->post('description')
+            'description' => $this->input->post('description'),
+            'iamge_link' => $this->input->post('iamge_link')
         );
 
         $this->Product_model->update_product($id, $data);

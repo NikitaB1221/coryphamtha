@@ -170,6 +170,11 @@ class DbController extends CI_Controller
                     'type' => 'VARCHAR',
                     'constraint' => '500',
                     'null' => FALSE
+                ),
+                'iamge_link' => array(
+                    'type' => 'VARCHAR',
+                    'constraint' => '500',
+                    'null' => TRUE
                 )
             );
             $this->dbforge->add_field($fields);
