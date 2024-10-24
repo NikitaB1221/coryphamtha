@@ -216,4 +216,4 @@ class Products extends CI_Controller
         echo json_encode(array('status' => 'Product filter tag deleted successfully'));
     }
 }
-?>
+
