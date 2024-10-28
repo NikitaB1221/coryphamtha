@@ -98,6 +98,7 @@ class User_model extends CI_Model
         $query = $this->db->get_where('users', array('phone' => $identifier, 'phoneVerificationCode' => $VerificationCode));
 
         $user = $query->row_array();
+        if($user == null) return null;
 
         $query2 = $this->db->get_where('users', array('id !=' => $user['id'], 'phone' => $identifier));
 
@@ -116,6 +117,7 @@ class User_model extends CI_Model
         $query = $this->db->get_where('users', array('phone' => $identifier, 'loginVerificationCode' => $VerificationCode));
 
         $user = $query->row_array();
+        if($user == null) return null;
 
         $query2 = $this->db->get_where('users', array('id !=' => $user['id'], 'phone' => $identifier));
 

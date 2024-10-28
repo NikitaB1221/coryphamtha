@@ -71,6 +71,9 @@ class Users extends CI_Controller
             echo json_encode(array('status' => 'Login successful', 'user' => $user));
             $this->session->set_userdata('user_id',$user['id']);
         }
+        else{
+            echo json_encode(array('status' => 'Phone error'));
+        }
     }
 
     public function verify_phone(){
@@ -80,6 +83,9 @@ class Users extends CI_Controller
         $user = $this->User_model->check_credentials($phone, $PVC, 'phone');
         if($user){
             echo json_encode(array('status' => 'Verification successful', 'user' => $user));
+        }
+        else{
+            echo json_encode(array('status' => 'Login error'));
         }
     }
 
