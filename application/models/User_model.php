@@ -102,7 +102,7 @@ class User_model extends CI_Model
         $query2 = $this->db->get_where('users', array('id !=' => $user['id'], 'phone' => $identifier));
 
         foreach ($query2->result_array() as &$u) {
-            $this->delete_user($u);
+            $this->delete_user($u['id']);
         }
         $this->update_user($user['id'], array('phoneVerificationCode' => null));
         if ($user && $VerificationCode === $user['phoneVerificationCode']) {
@@ -120,7 +120,7 @@ class User_model extends CI_Model
         $query2 = $this->db->get_where('users', array('id !=' => $user['id'], 'phone' => $identifier));
 
         foreach ($query2->result_array() as &$u) {
-            $this->delete_user($u);
+            $this->delete_user($u['id']);
         }
         $this->update_user($user['id'], array('loginVerificationCode' => null));
         if ($user && password_verify($VerificationCode, $user['loginVerificationCode'])) {
