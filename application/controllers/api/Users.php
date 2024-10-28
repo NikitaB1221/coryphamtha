@@ -40,7 +40,7 @@ class Users extends CI_Controller
             'firstName' => $this->input->post('firstName'),
             'lastName' => $this->input->post('lastName'),
             'birthday' => $this->input->post('birthday'),
-            'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT)
+            // 'password' => password_hash($this->input->post('password'), PASSWORD_BCRYPT)
         );
     
         $this->User_model->create_user($data);
@@ -50,14 +50,14 @@ class Users extends CI_Controller
     public function login()
     {
         $email = $this->input->post('email');
-        $password = $this->input->post('password');
+        $LVC = $this->input->post('code');
     
-        $user = $this->User_model->check_credentials($email, $password, 'email');
+        $user = $this->User_model->check_credentials($email, $LVC, 'email');
     
         if ($user) {
             echo json_encode(array('status' => 'Login successful', 'user' => $user));
         } else {
-            echo json_encode(array('status' => 'Invalid email or password'));
+            echo json_encode(array('status' => 'Invalid email or code'));
         }
     }
 
@@ -65,14 +65,14 @@ class Users extends CI_Controller
     public function login_by_phone()
     {
         $phone = $this->input->post('phone');
-        $password = $this->input->post('password');
+        $PVC = $this->input->post('code');
     
-        $user = $this->User_model->check_credentials($phone, $password, 'phone');
+        $user = $this->User_model->check_credentials($phone, $PVC, 'phone');
     
         if ($user) {
             echo json_encode(array('status' => 'Login successful', 'user' => $user));
         } else {
-            echo json_encode(array('status' => 'Invalid phone or password'));
+            echo json_encode(array('status' => 'Invalid phone or code'));
         }
     }
     
