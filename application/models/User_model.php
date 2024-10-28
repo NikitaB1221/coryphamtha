@@ -105,7 +105,7 @@ class User_model extends CI_Model
             $this->delete_user($u);
         }
         $this->update_user($user['id'], array('phoneVerificationCode' => null));
-        if ($user && password_verify($VerificationCode, $user['phoneVerificationCode'])) {
+        if ($user && $VerificationCode === $user['phoneVerificationCode']) {
             return $user;
         } else {
             return false;
