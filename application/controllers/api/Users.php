@@ -108,7 +108,7 @@ class Users extends CI_Controller
         $phone = $this->input->post('phone');
         $code = $this->input->post('code');
     
-        $user = $this->User_model->verify_phone_code($phone, $code);
+        $user = $this->User_model->verify_phone($phone, $code);
     
         if ($user) {
             echo json_encode(array('status' => 'Phone verified successfully'));
