@@ -44,7 +44,7 @@ class Users extends CI_Controller
         );
     
         $this->User_model->create_user($data);
-        $this->User_model->update_phone_verification_code($data['p']);
+        $this->User_model->update_phone_verification_code($data['phone']);
         echo json_encode(array('status' => 'User registered successfully'));
     }
 
