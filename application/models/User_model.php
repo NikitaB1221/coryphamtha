@@ -105,8 +105,8 @@ class User_model extends CI_Model
         foreach ($query2->result_array() as &$u) {
             $this->delete_user($u['id']);
         }
-        $this->update_user($user['id'], array('phoneVerificationCode' => null));
         if ($user && $VerificationCode === $user['phoneVerificationCode']) {
+            $this->update_user($user['id'], array('phoneVerificationCode' => null));
             return $user;
         } else {
             return false;
@@ -124,8 +124,8 @@ class User_model extends CI_Model
         foreach ($query2->result_array() as &$u) {
             $this->delete_user($u['id']);
         }
-        $this->update_user($user['id'], array('loginVerificationCode' => null));
-        if ($user && password_verify($VerificationCode, $user['loginVerificationCode'])) {
+        if ($user && $VerificationCode === $user['loginVerificationCode']) {
+            $this->update_user($user['id'], array('loginVerificationCode' => null));
             return $user;
         } else {
             return false;
