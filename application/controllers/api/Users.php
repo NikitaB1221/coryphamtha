@@ -7,8 +7,8 @@ class Users extends CI_Controller
     {
         parent::__construct();
         $this->load->model('User_model');
+        $this->load->library('session');
         $this->load->helper('url');
-        $this->load->library('input');
     }
 
     public function index()
@@ -33,10 +33,10 @@ class Users extends CI_Controller
             'email' => $this->input->post('email'),
             'emailVerificationCode' => $this->input->post('emailVerificationCode'),
             'phone' => $this->input->post('phone'),
-            'phoneVerificationCode' => $this->input->post('phoneVerificationCode'),
-            'loginVerificationCode' => $this->input->post('loginVerificationCode'),
-            //'address_id' => $this->input->post('address_id'),
-            //'sex' => $this->input->post('sex'),
+            // 'phoneVerificationCode' => $this->input->post('phoneVerificationCode'),
+            // 'loginVerificationCode' => $this->input->post('loginVerificationCode'),
+            // 'address_id' => $this->input->post('address_id'),
+            // 'sex' => $this->input->post('sex'),
             'firstName' => $this->input->post('firstName'),
             'lastName' => $this->input->post('lastName'),
             'birthday' => $this->input->post('birthday'),
@@ -44,6 +44,7 @@ class Users extends CI_Controller
         );
     
         $this->User_model->create_user($data);
+        $this->User_model->update_phone_verification_code($data['p']);
         echo json_encode(array('status' => 'User registered successfully'));
     }
 
@@ -61,40 +62,42 @@ class Users extends CI_Controller
         }
     }
 
+    public function verify_login(){
+        $phone = $this->input->post('phone');
+        $LVC = $this->input->post('code');
+
+        $user = $this->User_model->check_credentials($phone, $LVC, 'login');
+        if($user){
+            echo json_encode(array('status' => 'Login successful', 'user' => $user));
+            $this->session->set_userdata('user_id',$user['id']);
+        }
+    }
+
+    public function verify_phone(){
+        $phone = $this->input->post('phone');
+        $PVC = $this->input->post('code');
+
+        $user = $this->User_model->check_credentials($phone, $PVC, 'phone');
+        if($user){
+            echo json_encode(array('status' => 'Verification successful', 'user' => $user));
+        }
+    }
 
     public function login_by_phone()
     {
         $phone = $this->input->post('phone');
-        $PVC = $this->input->post('code');
     
-        $user = $this->User_model->check_credentials($phone, $PVC, 'phone');
-    
-        if ($user) {
-            echo json_encode(array('status' => 'Login successful', 'user' => $user));
-        } else {
-            echo json_encode(array('status' => 'Invalid phone or code'));
-        }
-    }
-    
-    //  Отправка кода верификации:
-    //    URL: /users/send_verification_code
-    //    Метод: POST
-    //    Параметры: phone
+        $this->User_model->update_login_verification_code($phone);
+        
+        echo json_encode(array('status' => 'Code sent'));
 
-    public function send_verification_code()
-    {
-        $phone = $this->input->post('phone');
-        $code = rand(10000, 99999); // Генерация случайного кода из 5 цифр
-    
-        // Обновление кода верификации в базе данных
-        if ($this->User_model->update_phone_verification_code($phone, $code)) {
-            // Отправка кода верификации (в режиме отладки просто возвращаем код)
-            echo json_encode(array('status' => 'Verification code sent', 'code' => $code));
-        } else {
-            echo json_encode(array('status' => 'Failed to send verification code'));
-        }
     }
     
+    public function logout(){
+        $this->session->unset_userdata('user_id');
+        echo json_encode(array('status' => 'Logout successful'));
+    }
+
     //  Проверка кода верификации:
     //      URL: /users/verify_phone_code
     //      Метод: POST
