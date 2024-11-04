@@ -10,30 +10,29 @@ class CartItems_controller extends CI_Controller
 
     public function index()
     {
-        $data['records'] = $this->CartItems_model->get_all();
-        $this->load->view('cart_items_view', $data);
+        $data['cart_items'] = $this->CartItems_model->get_all();
+        echo json_encode($data);
     }
 
     public function create()
-    {
-        $this->load->view('create_cart_items_view');
-    }
-
-    public function store()
     {
         $data = array(
             'user_id' => $this->input->post('user_id'),
             'product_id' => $this->input->post('product_id'),
             'quantity' => $this->input->post('quantity')
         );
-        $this->CartItems_model->insert($data);
-        redirect('cart_items');
+        $this->CartItems_model->create_cart_items($data);
+        echo json_encode(array('status' => 'Cart item created successfully'));
     }
 
-    public function edit($id)
+    public function view($id)
     {
-        $data['record'] = $this->CartItems_model->get_by_id($id);
-        $this->load->view('edit_cart_items_view', $data);
+        $data['cart_item'] = $this->CartItems_model->get_by_id($id);
+        if ($data['cart_item']) {
+            echo json_encode($data);
+        } else {
+            show_404();
+        }
     }
 
     public function update($id)
@@ -44,12 +43,12 @@ class CartItems_controller extends CI_Controller
             'quantity' => $this->input->post('quantity')
         );
         $this->CartItems_model->update($id, $data);
-        redirect('cart_items');
+        echo json_encode(array('status' => 'Cart item updated successfully'));
     }
 
     public function delete($id)
     {
         $this->CartItems_model->delete($id);
-        redirect('cart_items');
+        echo json_encode(array('status' => 'Cart item deleted successfully'));
     }
 }

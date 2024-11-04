@@ -16,7 +16,7 @@ class WishlistItems_model extends CI_Model {
         return $this->db->get_where('wishlist_items', array('id' => $id))->row_array();
     }
 
-    public function insert($data) {
+    public function create_wishlist_items($data) {
         return $this->db->insert('wishlist_items', $data);
     }
 

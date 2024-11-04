@@ -171,7 +171,7 @@ class Products extends CI_Controller
     public function create_filter_tag()
     {
         $data = array(
-            'product_fiterter_tag_category_id' => $this->input->post('product_fiterter_tag_category_id'),
+            'product_filter_tag_category_id' => $this->input->post('product_filter_tag_category_id'),
             'title' => $this->input->post('title')
         );
 
@@ -182,7 +182,7 @@ class Products extends CI_Controller
     public function update_filter_tag($id)
     {
         $data = array(
-            'product_fiterter_tag_category_id' => $this->input->post('product_fiterter_tag_category_id'),
+            'product_filter_tag_category_id' => $this->input->post('product_filter_tag_category_id'),
             'title' => $this->input->post('title')
         );
 
@@ -205,7 +205,7 @@ class Products extends CI_Controller
     public function create_product_filter_tag()
     {
         $data = array(
-            'product_fiterter_tags_id' => $this->input->post('product_fiterter_tags_id'),
+            'product_filter_tags_id' => $this->input->post('product_filter_tags_id'),
             'product_id' => $this->input->post('product_id')
         );
 

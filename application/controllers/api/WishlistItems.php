@@ -12,30 +12,29 @@ class WishlistItems_controller extends CI_Controller
 
     public function index()
     {
-        $data['records'] = $this->WishlistItems_model->get_all();
-        $this->load->view('wishlist_items_view', $data);
+        $data['wishlist_items'] = $this->WishlistItems_model->get_all();
+        echo json_encode($data);
     }
 
     public function create()
-    {
-        $this->load->view('create_wishlist_items_view');
-    }
-
-    public function store()
     {
         $data = array(
             'user_id' => $this->input->post('user_id'),
             'product_id' => $this->input->post('product_id'),
             'quantity' => $this->input->post('quantity')
         );
-        $this->WishlistItems_model->insert($data);
-        redirect('wishlist_items');
+        $this->WishlistItems_model->create_wishlist_items($data);
+        echo json_encode(array('status' => 'Wishlist item created successfully'));
     }
 
-    public function edit($id)
+    public function view($id)
     {
-        $data['record'] = $this->WishlistItems_model->get_by_id($id);
-        $this->load->view('edit_wishlist_items_view', $data);
+        $data['wishlist_item'] = $this->WishlistItems_model->get_by_id($id);
+        if ($data['wishlist_item']) {
+            echo json_encode($data);
+        } else {
+            show_404();
+        }
     }
 
     public function update($id)
@@ -46,12 +45,12 @@ class WishlistItems_controller extends CI_Controller
             'quantity' => $this->input->post('quantity')
         );
         $this->WishlistItems_model->update($id, $data);
-        redirect('wishlist_items');
+        echo json_encode(array('status' => 'Wishlist item updated successfully'));
     }
 
     public function delete($id)
     {
         $this->WishlistItems_model->delete($id);
-        redirect('wishlist_items');
+        echo json_encode(array('status' => 'Wishlist item deleted successfully'));
     }
 }

@@ -16,7 +16,7 @@ class CartItems_model extends CI_Model {
         return $this->db->get_where('cart_items', array('id' => $id))->row_array();
     }
 
-    public function insert($data) {
+    public function create_cart_items($data) {
         return $this->db->insert('cart_items', $data);
     }
 
