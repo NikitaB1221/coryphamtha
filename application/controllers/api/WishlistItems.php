@@ -24,7 +24,7 @@ class WishlistItems extends CI_Controller
             'quantity' => $this->input->post('quantity')
         );
         $this->WishlistItems_model->create_wishlist_items($data);
-        echo json_encode(array('status' => 'Wishlist item created successfully'));
+        echo json_encode(array('status' => 'Wishlist item created successfully','id' => $id));
     }
 
     public function view($id)
