@@ -38,7 +38,7 @@ class Products extends CI_Controller
             'iamge_link' => $this->input->post('iamge_link')
         );
 
-        $this->Product_model->create_product($data);
+        $id = $this->Product_model->create_product($data);
         echo json_encode(array('status' => 'Product created successfully','id' => $id));
     }
 
@@ -88,7 +88,7 @@ class Products extends CI_Controller
             'main' => $this->input->post('main')
         );
 
-        $this->Product_model->create_category($data);
+        $id = $this->Product_model->create_category($data);
         echo json_encode(array('status' => 'Category created successfully','id' => $id));
     }
 
@@ -132,7 +132,7 @@ class Products extends CI_Controller
             'title' => $this->input->post('title')
         );
 
-        $this->Product_model->create_filter_tag_category($data);
+        $id = $this->Product_model->create_filter_tag_category($data);
         echo json_encode(array('status' => 'Filter tag category created successfully','id' => $id));
     }
 
@@ -175,7 +175,7 @@ class Products extends CI_Controller
             'title' => $this->input->post('title')
         );
 
-        $this->Product_model->create_filter_tag($data);
+        $id = $this->Product_model->create_filter_tag($data);
         echo json_encode(array('status' => 'Filter tag created successfully','id' => $id));
     }
 
@@ -209,7 +209,7 @@ class Products extends CI_Controller
             'product_id' => $this->input->post('product_id')
         );
 
-        $this->Product_model->create_product_filter_tag($data);
+        $id = $this->Product_model->create_product_filter_tag($data);
         echo json_encode(array('status' => 'Product filter tag created successfully','id' => $id));
     }
 

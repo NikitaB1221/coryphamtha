@@ -21,7 +21,7 @@ class CartItems extends CI_Controller
             'product_id' => $this->input->post('product_id'),
             'quantity' => $this->input->post('quantity')
         );
-        $this->CartItems_model->create_cart_items($data);
+        $id = $this->CartItems_model->create_cart_items($data);
         echo json_encode(array('status' => 'Cart item created successfully','id' => $id));
     }
 
