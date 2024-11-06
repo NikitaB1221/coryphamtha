@@ -39,7 +39,7 @@ class Products extends CI_Controller
         );
 
         $id = $this->Product_model->create_product($data);
-        echo json_encode(array('status' => 'Product created successfully','id' => $id['id']));
+        echo json_encode(array('status' => 'Product created successfully'));
     }
 
     public function update($id)
@@ -89,7 +89,7 @@ class Products extends CI_Controller
         );
 
         $id = $this->Product_model->create_category($data);
-        echo json_encode(array('status' => 'Category created successfully','id' => $id['id']));
+        echo json_encode(array('status' => 'Category created successfully'));
     }
 
     public function update_category($id)
@@ -133,7 +133,7 @@ class Products extends CI_Controller
         );
 
         $id = $this->Product_model->create_filter_tag_category($data);
-        echo json_encode(array('status' => 'Filter tag category created successfully','id' => $id['id']));
+        echo json_encode(array('status' => 'Filter tag category created successfully'));
     }
 
     public function update_filter_tag_category($id)
@@ -176,7 +176,7 @@ class Products extends CI_Controller
         );
 
         $id = $this->Product_model->create_filter_tag($data);
-        echo json_encode(array('status' => 'Filter tag created successfully','id' => $id['id']));
+        echo json_encode(array('status' => 'Filter tag created successfully'));
     }
 
     public function update_filter_tag($id)
@@ -210,7 +210,7 @@ class Products extends CI_Controller
         );
 
         $id = $this->Product_model->create_product_filter_tag($data);
-        echo json_encode(array('status' => 'Product filter tag created successfully','id' => $id['id']));
+        echo json_encode(array('status' => 'Product filter tag created successfully'));
     }
 
     public function delete_product_filter_tag($id)

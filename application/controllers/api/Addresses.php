@@ -23,7 +23,7 @@ class Addresses extends CI_Controller {
             'house' => $this->input->post('house')
         );
         $id = $this->Addresses_model->create_address($data);
-        echo json_encode(array('status' => 'Address created successfully','id' => $id['id']['id']));
+        echo json_encode(array('status' => 'Address created successfully'['id']));
     }
 
     public function view($id = null)    {
