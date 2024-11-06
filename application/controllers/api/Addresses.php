@@ -26,7 +26,7 @@ class Addresses extends CI_Controller {
         echo json_encode(array('status' => 'Address created successfully'['id']));
     }
 
-    public function view($id = null)    {
+    public function view($id)    {
         $data['address'] = $this->Addresses_model->get_by_id($id);
         if ($data['address']) {
             echo json_encode($data);
