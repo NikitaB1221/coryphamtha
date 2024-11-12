@@ -37,11 +37,11 @@ public function get_cart_items_by_user_id($user_id) {
     return $this->db->get()->result_array();
 }
 public function get_product_price($product_id) {
-    $this->db->select('prise');
-    $this->db->from('product');
+    $this->db->select('price');
+    $this->db->from('products');
     $this->db->where('id', $product_id);
     $query = $this->db->get();
-    return $query->row_array()['prise'];
+    return $query->row_array()['price'];
 }
 public function calculate_total_price($cart_items) {
     $total_price = 0;
