@@ -13,7 +13,7 @@ class Orders extends CI_Controller {
             'user_phone' => $this->input->post('user_phone'),
             'user_id' => $u_id,
             'order_time' => date('Y-m-d H:i:s'),
-            'total_prise' => 0,// $this->Orders_model->calculate_total_price($u_id),
+            'total_prise' => $this->Orders_model->calculate_total_price($u_id),
         );
         $order_id = $this->Orders_model->create_order($data);
         echo json_encode(array("data" => $data, 'Orders created successfuly'));
