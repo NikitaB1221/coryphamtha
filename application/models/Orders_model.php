@@ -7,28 +7,28 @@ public function __construct() {
 }
 public function get_orders() {
     $this->db->select('*');
-    $this->db->from('order');
+    $this->db->from('orders');
     $query = $this->db->get();
     return $query->result_array();
 }
 
 public function create_order($data) {
-    $this->db->insert('order', $data);
+    $this->db->insert('orders', $data);
     return $this->db->insert_id();
 }
 
 public function get_order($id) {
-    return $this->db->get_where('order', array('id' => $id))->row_array();
+    return $this->db->get_where('orders', array('id' => $id))->row_array();
 }
 
 public function update_order($id, $data) {
     $this->db->where('id', $id);
-    return $this->db->update('order', $data);
+    return $this->db->update('orders', $data);
 }
 
 public function delete_order($id) {
     $this->db->where('id', $id);
-    return $this->db->delete('order');
+    return $this->db->delete('orders');
 }
 public function get_cart_items_by_user_id($user_id) {
     $this->db->select('*');
