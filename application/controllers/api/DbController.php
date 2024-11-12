@@ -406,7 +406,7 @@ class DbController extends CI_Controller
     public function createOrderItemsTable() {
         $this->load->dbforge();
 
-        if (!$this->db->table_exists('cart_items')) {
+        if (!$this->db->table_exists('order_items')) {
             $fields = array(
             'id' => array(
                 'type' => 'INT',
@@ -429,7 +429,7 @@ class DbController extends CI_Controller
         );
         $this->dbforge->add_field($fields);
         $this->dbforge->add_key('id', TRUE);
-        $this->dbforge->create_table('cart_items');
+        $this->dbforge->create_table('order_items');
         } else {
             echo 'Cart items table already exists.';
         }
