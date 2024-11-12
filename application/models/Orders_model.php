@@ -43,8 +43,9 @@ public function get_product_price($product_id) {
     $query = $this->db->get();
     return $query->row_array()['price'];
 }
-public function calculate_total_price($cart_items) {
+public function calculate_total_price($user_id) {
     $total_price = 0;
+    $cart_items = $this->get_cart_items_by_user_id($user_id);
     foreach ($cart_items as $item) {
         $product_price = $this->get_product_price($item['product_id']);
         $total_price += $product_price * $item['quantity'];
