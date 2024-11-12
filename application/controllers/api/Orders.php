@@ -16,6 +16,7 @@ class Orders extends CI_Controller {
             'total_prise' => $this->calculate_total_price($u_id),
         );
         $order_id = $this->Order_model->create_order($data);
+        echo json_encode(array("data" => $data, 'Orders created successfuly'));
         return $order_id;
     }
     public function index() {
