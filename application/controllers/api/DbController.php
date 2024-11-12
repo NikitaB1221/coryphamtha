@@ -369,5 +369,41 @@ class DbController extends CI_Controller
             echo 'Cart items table already exists.';
         }
     }
+
+    public function createOrdersTable() {
+        $this->load->dbforge();
+
+        if (!$this->db->table_exists('orders')) {
+            $fields = array(
+            'id' => array(
+                'type' => 'CHAR',
+                'constraint' => 36,
+                'unique' => TRUE
+            ),
+            'user_phone' => array(
+                'type' => 'VARCHAR',
+                'constraint' => 15,
+            ),
+            'user_id' => array(
+                'type' => 'CHAR',
+                'constraint' => 36,
+            ),
+            'order_time' => array(
+                'type' => 'DATETIME',
+            ),
+            'total_prise' => array(
+                'type' => 'INT',
+                'constraint' => 255,
+            )
+        );
+        $this->dbforge->add_field($fields);
+        $this->dbforge->add_key('id', TRUE);
+        $this->dbforge->create_table('orders');
+        } else {
+            echo 'Orders table already exists.';
+        }
+    }
+
+
 }
 
