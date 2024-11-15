@@ -83,6 +83,12 @@ class DbController extends CI_Controller
                 'birthday' => array(
                     'type' => 'DATE',
                     'null' => TRUE
+                ),
+                'IsSubscribed' => array(
+                    'type' => 'TINYINT',
+                    'constraint' => '1',
+                    'null' => FALSE,
+                    'default' => 0
                 )
             );
             $this->dbforge->add_field($fields);

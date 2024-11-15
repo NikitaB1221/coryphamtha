@@ -84,7 +84,6 @@ class User_model extends CI_Model
         $this->db->where('id', $id);
         return $this->db->delete('addresses');
     }
-
     public function check_credentials($identifier, $VerificationCode, $type = 'login')
     {
         if ($type == 'login') {
@@ -112,6 +111,20 @@ class User_model extends CI_Model
             return false;
         }
     }
+    public function change_user_subscription($user_id)
+    {
+        $this->db->where('id', $user_id);
+        $query = $this->db->get('users');
+        if ($query->num_rows() > 0) {
+            $user = $query->row_array();
+            if (isset($user['IsSubscribed'])) {
+                $new_value = $user['IsSubscribed'] ? 0 : 1; 
+                return $this->db->update('users', array('IsSubscribed' => $new_value));
+            }
+        }
+        return false; 
+    }
+
     public function verify_login($identifier, $VerificationCode)
     {
         $query = $this->db->get_where('users', array('phone' => $identifier, 'loginVerificationCode' => $VerificationCode));
@@ -131,7 +144,20 @@ class User_model extends CI_Model
             return false;
         }
     }
+    public function get_subscribed_users_emails()
+    {
+        $this->db->where('IsSubscribed', true);
+        $query = $this->db->get('users');
 
+        $emails = array();
+        foreach ($query->result_array() as $user) {
+            if (isset($user['email'])) {
+                $emails[] = $user['email'];
+            }
+        }
+
+        return $emails;
+    }
     public function update_phone_verification_code($phone)
     {
         $this->db->where('phone', $phone);
