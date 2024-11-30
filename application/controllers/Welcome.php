@@ -22,12 +22,12 @@ class Welcome extends CI_Controller
 	 */
 	public function index()
 	{
-		$this->load->database('default');
+		/* $this->load->database('default');
 		if ($this->db->simple_query('SELECT 1')) {
 			echo "Success!";
 		} else {
 			echo "Query failed!";
-		}
-		// $this->load->view('welcome_message');
+		} */ 
+		$this->load->view('welcome_message');
 	}
 }
