@@ -115,6 +115,9 @@ class User_model extends CI_Model
     {
         $this->db->where('id', $user_id);
         $query = $this->db->get('users');
+
+        
+
         if ($query->num_rows() > 0) {
             $user = $query->row_array();
             if (isset($user['IsSubscribed'])) {

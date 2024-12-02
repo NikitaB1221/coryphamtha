@@ -21,6 +21,22 @@ class Product_model extends CI_Model
         return $query->row_array();
     }
 
+    public function get_product_by_name($name)
+    {
+        $name = $this->db->escape_like_str($name);
+        $this->db->like('name', $name);
+        $query = $this->db->get('products');
+        return $query->row_array();
+    }
+
+    public function get_similar_products($name)
+{
+    $name = $this->db->escape_like_str($name);
+    $this->db->like('name', $name, 'both'); 
+    $query = $this->db->get('products');
+    return $query->result_array(); 
+}
+
     public function create_product($data)
     {
         return $this->db->insert('products', $data);

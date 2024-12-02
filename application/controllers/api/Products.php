@@ -26,6 +26,16 @@ class Products extends CI_Controller
         }
     }
 
+    public function view_by_name($title)
+    {
+        $data['product'] = $this->Product_model->get_product_by_name($title);
+        if ($data['product']) {
+            echo json_encode($data);
+        } else {
+            show_404();
+        }
+    }
+
     public function create()
     {
         $data = array(
