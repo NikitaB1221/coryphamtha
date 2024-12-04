@@ -21,18 +21,18 @@ class Product_model extends CI_Model
         return $query->row_array();
     }
 
-    public function get_product_by_name($name)
+    public function get_product_by_title($title)
     {
-        $name = $this->db->escape_like_str($name);
-        $this->db->like('name', $name);
+        $title = $this->db->escape_like_str($title);
+        $this->db->like('title', $title);
         $query = $this->db->get('products');
         return $query->row_array();
     }
 
-    public function get_similar_products($name)
+    public function get_similar_products($title)
 {
-    $name = $this->db->escape_like_str($name);
-    $this->db->like('name', $name, 'both'); 
+    $title = $this->db->escape_like_str($title);
+    $this->db->like('title', $title, 'both'); 
     $query = $this->db->get('products');
     return $query->result_array(); 
 }
