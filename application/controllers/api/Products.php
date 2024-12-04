@@ -36,6 +36,28 @@ class Products extends CI_Controller
         }
     }
 
+    public function view_by_category() {
+        $category_id = $this->input->get('category_id');
+
+        if ($category_id) {
+            $products = $this->Product_model->get_products_by_category($category_id);
+            $this->load->view('products/category_products', array('products' => $products));
+        } else {
+            $this->load->view('products/error_view');
+        }
+    }
+
+    public function find_similar_products() {
+        $title = $this->input->get('title');
+
+        if ($title) {
+            $products = $this->Product_model->get_similar_products($title);
+            $this->load->view('products/similar_products', array('products' => $products));
+        } else {
+            $this->load->view('products/error_view');
+        }
+    }
+
     public function create()
     {
         $data = array(
