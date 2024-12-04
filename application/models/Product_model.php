@@ -29,13 +29,19 @@ class Product_model extends CI_Model
         return $query->row_array();
     }
 
+    public function get_products_by_category($category_id)
+    {
+        $query = $this->db->get_where('products', array('category_id' => $category_id));
+        return $query->result_array(); 
+    }
+
     public function get_similar_products($title)
-{
-    $title = $this->db->escape_like_str($title);
-    $this->db->like('title', $title, 'both'); 
-    $query = $this->db->get('products');
-    return $query->result_array(); 
-}
+    {
+        $title = $this->db->escape_like_str($title);
+        $this->db->like('title', $title, 'both'); 
+        $query = $this->db->get('products');
+        return $query->result_array(); 
+    }
 
     public function create_product($data)
     {
