@@ -40,10 +40,11 @@ class Products extends CI_Controller
         $category_id = $this->input->get('category_id');
 
         if ($category_id) {
-            $products = $this->Product_model->get_products_by_category($category_id);
-            $this->load->view('products/category_products', array('products' => $products));
+            $prod_by_cat = $this->Product_model->get_products_by_category($category_id);
+            echo json_encode(array('status' => 'view_by_category activated successfully', "data" => $prod_by_cat));
+            
         } else {
-            $this->load->view('products/error_view');
+            echo json_encode(array('status' => 'Incorrect title type'));
         }
     }
 
@@ -51,10 +52,11 @@ class Products extends CI_Controller
         $title = $this->input->get('title');
 
         if ($title) {
-            $products = $this->Product_model->get_similar_products($title);
-            $this->load->view('products/similar_products', array('products' => $products));
+            $sim_prod = $this->Product_model->get_similar_products($title);
+            echo json_encode(array('status' => 'find_similar_products activated successfully', "data" => $sim_prod));
+
         } else {
-            $this->load->view('products/error_view');
+            echo json_encode(array('status' => 'Incorrect title type'));
         }
     }
 
